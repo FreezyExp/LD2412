@@ -79,16 +79,16 @@ static const std::map<uint8_t, std::string> DISTANCE_RESOLUTION_INT_TO_ENUM{{DIS
                                                                             {DISTANCE_RESOLUTION_0_5, "0.5m"},
                                                                             {DISTANCE_RESOLUTION_0_75, "0.75m"}};
 
-// enum LightFunctionStructure : uint8_t {
-//   LIGHT_FUNCTION_OFF = 0x00,
-//   LIGHT_FUNCTION_BELOW = 0x01,
-//   LIGHT_FUNCTION_ABOVE = 0x02
-// };
-// 
-// static const std::map<std::string, uint8_t> LIGHT_FUNCTION_ENUM_TO_INT{
-//     {"off", LIGHT_FUNCTION_OFF}, {"below", LIGHT_FUNCTION_BELOW}, {"above", LIGHT_FUNCTION_ABOVE}};
-// static const std::map<uint8_t, std::string> LIGHT_FUNCTION_INT_TO_ENUM{
-//     {LIGHT_FUNCTION_OFF, "off"}, {LIGHT_FUNCTION_BELOW, "below"}, {LIGHT_FUNCTION_ABOVE, "above"}};
+enum LightFunctionStructure : uint8_t {
+  LIGHT_FUNCTION_OFF = 0x00,
+  LIGHT_FUNCTION_BELOW = 0x01,
+  LIGHT_FUNCTION_ABOVE = 0x02
+};
+
+static const std::map<std::string, uint8_t> LIGHT_FUNCTION_ENUM_TO_INT{
+    {"off", LIGHT_FUNCTION_OFF}, {"below", LIGHT_FUNCTION_BELOW}, {"above", LIGHT_FUNCTION_ABOVE}};
+static const std::map<uint8_t, std::string> LIGHT_FUNCTION_INT_TO_ENUM{
+    {LIGHT_FUNCTION_OFF, "off"}, {LIGHT_FUNCTION_BELOW, "below"}, {LIGHT_FUNCTION_ABOVE, "above"}};
 
 enum OutPinLevelStructure : uint8_t { OUT_PIN_LEVEL_LOW = 0x01, OUT_PIN_LEVEL_HIGH = 0x00 };
 
@@ -189,7 +189,7 @@ class LD2412Component : public Component, public uart::UARTDevice {
   void set_gate_still_threshold_number(int gate, number::Number *n);
   void set_gate_move_threshold_number(int gate, number::Number *n);
   void set_basic_config();
-//  void set_gate_threshold(uint8_t gate);
+  void set_gate_threshold(uint8_t gate);
 #endif
 #ifdef USE_SENSOR
   void set_gate_move_sensor(int gate, sensor::Sensor *s);

@@ -27,11 +27,11 @@ CONFIG_SCHEMA = {
         entity_category=ENTITY_CATEGORY_CONFIG,
         icon=ICON_RULER,
     ),
-    # cv.Optional(CONF_LIGHT_FUNCTION): select.select_schema(
-    #     LightOutControlSelect,
-    #     entity_category=ENTITY_CATEGORY_CONFIG,
-    #     icon=ICON_LIGHTBULB,
-    # ),
+    cv.Optional(CONF_LIGHT_FUNCTION): select.select_schema(
+        LightOutControlSelect,
+        entity_category=ENTITY_CATEGORY_CONFIG,
+        icon=ICON_LIGHTBULB,
+    ),
     cv.Optional(CONF_OUT_PIN_LEVEL): select.select_schema(
         LightOutControlSelect,
         entity_category=ENTITY_CATEGORY_CONFIG,
@@ -57,12 +57,12 @@ async def to_code(config):
         s = await select.new_select(out_pin_level_config, options=["low", "high"])
         await cg.register_parented(s, config[CONF_LD2412_ID])
         cg.add(LD2412_component.set_out_pin_level_select(s))
-    # if light_function_config := config.get(CONF_LIGHT_FUNCTION):
-    #     s = await select.new_select(
-    #         light_function_config, options=["off", "below", "above"]
-    #     )
-    #     await cg.register_parented(s, config[CONF_LD2412_ID])
-    #     cg.add(LD2412_component.set_light_function_select(s))
+    if light_function_config := config.get(CONF_LIGHT_FUNCTION):
+        s = await select.new_select(
+            light_function_config, options=["off", "below", "above"]
+        )
+        await cg.register_parented(s, config[CONF_LD2412_ID])
+        cg.add(LD2412_component.set_light_function_select(s))
     if baud_rate_config := config.get(CONF_BAUD_RATE):
         s = await select.new_select(
             baud_rate_config,
