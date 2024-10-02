@@ -626,27 +626,6 @@ void LD2412Component::set_basic_config() {
     highbyte(static_cast<int>(this->timeout_number_->state)),
     OUT_PIN_LEVEL_ENUM_TO_INT.at(this->out_pin_level_select_->state)
   };
-  int max_moving_distance_gate_range = static_cast<int>(this->max_move_distance_gate_number_->state);
-  int max_still_distance_gate_range = static_cast<int>(this->max_still_distance_gate_number_->state);
-  int timeout = static_cast<int>(this->timeout_number_->state);
-  uint8_t value[18] = {0x00,
-                       0x00,
-                       lowbyte(max_moving_distance_gate_range),
-                       highbyte(max_moving_distance_gate_range),
-                       0x00,
-                       0x00,
-                       0x01,
-                       0x00,
-                       lowbyte(max_still_distance_gate_range),
-                       highbyte(max_still_distance_gate_range),
-                       0x00,
-                       0x00,
-                       0x02,
-                       0x00,
-                       lowbyte(timeout),
-                       highbyte(timeout),
-                       0x00,
-                       0x00};
   this->set_config_mode_(true);
   this->send_command_(CMD_BASIC_CONF, value, 5);
   delay(50);  // NOLINT
